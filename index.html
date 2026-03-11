@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IB DP Design Technology</title>
+  <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #FFD600;
+      --yellow-dark: #F0C800;
+      --yellow-light: #FFF9CC;
+      --black: #111111;
+      --gray: #222222;
+      --mid: #444444;
+      --border: #333333;
+      --hl-accent: #FF4500;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Aleo', Georgia, serif;
+      background: var(--yellow);
+      color: var(--black);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--black);
+      color: var(--yellow);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid var(--yellow);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 1rem;
+    }
+
+    .site-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: var(--yellow);
+      text-decoration: none;
+    }
+
+    .site-title span {
+      color: var(--yellow);
+      opacity: 0.5;
+      font-weight: 300;
+      margin: 0 0.3em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 100%;
+    }
+
+    .nav-item {
+      position: relative;
+      height: 64px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-label {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0 1.1rem;
+      height: 100%;
+      font-family: 'Aleo', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      cursor: pointer;
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -3px;
+      transition: background 0.15s, border-color 0.15s;
+      white-space: nowrap;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      outline: none;
+      user-select: none;
+    }
+
+    .nav-label:hover,
+    .nav-item:focus-within .nav-label {
+      background: #1a1a1a;
+      border-bottom-color: var(--yellow);
+    }
+
+    .strand-a .nav-label:hover,
+    .strand-a:focus-within .nav-label { border-bottom-color: #FFD600; }
+    .strand-b .nav-label:hover,
+    .strand-b:focus-within .nav-label { border-bottom-color: #FFD600; }
+    .strand-c .nav-label:hover,
+    .strand-c:focus-within .nav-label { border-bottom-color: #FFD600; }
+
+    .caret {
+      font-size: 0.6rem;
+      opacity: 0.6;
+      transition: transform 0.2s;
+    }
+
+    .nav-item:focus-within .caret,
+    .nav-item:hover .caret { transform: rotate(180deg); }
+
+    /* strand badge */
+    .strand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--yellow);
+      color: var(--black);
+      margin-right: 0.2em;
+    }
+
+    /* ── DROPDOWN ── */
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      min-width: 320px;
+      background: var(--black);
+      border: 2px solid var(--yellow);
+      border-top: none;
+      z-index: 999;
+      padding: 0.5rem 0;
+    }
+
+    .nav-item:hover .dropdown,
+    .nav-item:focus-within .dropdown {
+      display: block;
+    }
+
+    .dropdown-section {
+      padding: 0.5rem 0 0.25rem;
+    }
+
+    .dropdown-section-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      opacity: 0.45;
+      padding: 0.25rem 1.1rem 0.4rem;
+    }
+
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 0.6em;
+      padding: 0.45rem 1.1rem;
+      font-size: 0.85rem;
+      color: #e8e8e8;
+      text-decoration: none;
+      transition: background 0.12s, color 0.12s;
+      line-height: 1.3;
+    }
+
+    .dropdown a:hover {
+      background: var(--yellow);
+      color: var(--black);
+    }
+
+    .hl-tag {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      background: var(--hl-accent);
+      color: #fff;
+      padding: 1px 5px;
+      border-radius: 2px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: #2a2a2a;
+      margin: 0.35rem 0;
+    }
+
+    /* Topic heading row inside dropdown */
+    .dropdown-topic-head {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      padding: 0.5rem 1.1rem 0.25rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--yellow) !important;
+      text-decoration: none;
+      transition: background 0.12s;
+      border-left: 2px solid transparent;
+    }
+
+    .dropdown-topic-head:hover {
+      background: var(--yellow) !important;
+      color: var(--black) !important;
+      border-left-color: var(--black);
+    }
+
+    /* Subtopic row */
+    .dropdown-sub {
+      display: flex;
+      align-items: center;
+      padding: 0.28rem 1.1rem 0.28rem 2rem;
+      font-size: 0.78rem;
+      color: #aaaaaa !important;
+      text-decoration: none;
+      transition: background 0.12s, color 0.12s;
+      line-height: 1.3;
+      border-left: 2px solid transparent;
+    }
+
+    .dropdown-sub::before {
+      content: '–';
+      margin-right: 0.5em;
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    .dropdown-sub:hover {
+      background: rgba(255,214,0,0.1) !important;
+      color: var(--yellow) !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text h1 em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .hero-text p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--gray);
+      max-width: 480px;
+    }
+
+    .hero-meta {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.75rem;
+      background: var(--black);
+      color: var(--yellow);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+    }
+
+    .badge.outline {
+      background: transparent;
+      color: var(--black);
+      border: 2px solid var(--black);
+    }
+
+    /* hero visual */
+    .hero-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .strand-card {
+      background: var(--black);
+      color: var(--yellow);
+      padding: 1.5rem 1rem;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .strand-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    .strand-card .big-letter {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .strand-card .strand-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      line-height: 1.3;
+    }
+
+    .strand-card .topic-count {
+      margin-top: 0.75rem;
+      font-size: 0.65rem;
+      opacity: 0.45;
+    }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    /* ── STRAND SECTION ── */
+    .strand-section {
+      margin-bottom: 4rem;
+    }
+
+    .strand-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 3px solid var(--black);
+    }
+
+    .strand-header .big-badge {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .strand-header-text h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .strand-header-text p {
+      font-size: 0.85rem;
+      opacity: 0.6;
+      margin-top: 0.2rem;
+    }
+
+    /* ── THEME ROW ── */
+    .theme-block {
+      margin-bottom: 2.5rem;
+    }
+
+    .theme-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--black);
+      color: var(--yellow);
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    /* ── TOPIC CARD ── */
+    .topic-card {
+      background: var(--black);
+      color: var(--yellow);
+      padding: 1.4rem 1.5rem;
+      border-radius: 3px;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s, box-shadow 0.18s;
+      border: 2px solid var(--black);
+    }
+
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--yellow);
+      transform: translateY(100%);
+      transition: transform 0.2s ease;
+      z-index: 0;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    .topic-card:hover::before { transform: translateY(0); }
+    .topic-card:hover .topic-code,
+    .topic-card:hover .topic-title,
+    .topic-card:hover .topic-arrow { color: var(--black); }
+
+    .topic-code {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      opacity: 0.5;
+      position: relative;
+      z-index: 1;
+      transition: color 0.2s;
+    }
+
+    .topic-title {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-top: 0.4rem;
+      position: relative;
+      z-index: 1;
+      transition: color 0.2s;
+    }
+
+    .topic-arrow {
+      position: absolute;
+      bottom: 1rem;
+      right: 1.2rem;
+      font-size: 1.1rem;
+      color: var(--yellow);
+      transition: color 0.2s, transform 0.2s;
+      z-index: 1;
+    }
+
+    .topic-card:hover .topic-arrow { transform: translate(3px, -3px); color: var(--black); }
+
+    .topic-card.hl-only {
+      border-color: var(--hl-accent);
+    }
+
+    .topic-card.hl-only .topic-code::after {
+      content: 'HL';
+      background: var(--hl-accent);
+      color: #fff;
+      font-size: 0.55rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 2px;
+      margin-left: 0.5em;
+      vertical-align: middle;
+    }
+
+    /* ── COMING SOON ── */
+    .topic-card.coming-soon {
+      opacity: 0.4;
+      pointer-events: none;
+      border-style: dashed;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: var(--yellow);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+
+    footer strong { opacity: 1; }
+
+    /* ── HAMBURGER (mobile) ── */
+    .hamburger {
+      display: none;
+      background: none;
+      border: 2px solid var(--yellow);
+      color: var(--yellow);
+      padding: 0.4rem 0.7rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+      border-radius: 2px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem 2rem; }
+      .hero-visual { grid-template-columns: repeat(3, 1fr); }
+      main { padding: 0 1.5rem 4rem; }
+      nav { display: none; }
+      .hamburger { display: block; }
+      .topic-grid { grid-template-columns: 1fr; }
+    }
+
+    /* anchor offset for sticky header */
+    .anchor-target { scroll-margin-top: 80px; }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="site-title">IB DP<span>/</span>Design Technology</a>
+
+    <nav>
+
+      <!-- HOME -->
+      <div class="nav-item">
+        <a href="#" class="nav-label">Home</a>
+      </div>
+
+      <!-- STRAND A -->
+      <div class="nav-item strand-a">
+        <button class="nav-label" aria-haspopup="true">
+          <span class="strand-badge">A</span> Theory
+          <span class="caret">▼</span>
+        </button>
+        <div class="dropdown" role="menu">
+
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">1 · People</div>
+            <a href="topics/a1-1.html" class="dropdown-topic-head">A1.1 Ergonomics</a>
+            <a href="topics/a1-1.html#a1-1-1" class="dropdown-sub">Definition of ergonomics</a>
+            <a href="topics/a1-1.html#a1-1-2" class="dropdown-sub">Anthropometrics &amp; percentile range</a>
+            <a href="topics/a1-1.html#a1-1-3" class="dropdown-sub">Selection of percentiles</a>
+            <a href="topics/a1-1.html#a1-1-4" class="dropdown-sub">Adjustability &amp; range of sizes</a>
+            <a href="topics/a1-1.html#a1-1-5" class="dropdown-sub">Work envelopes, reach &amp; clearance</a>
+            <a href="topics/a1-1.html#a1-1-6" class="dropdown-sub">Physiology &amp; biomechanics</a>
+            <a href="topics/a1-1.html#a1-1-7" class="dropdown-sub">Psychology &amp; human senses</a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">2 · Process</div>
+            <a href="topics/a2-1.html" class="dropdown-topic-head">A2.1 User-centred research methods</a>
+            <a href="topics/a2-1.html#a2-1-1" class="dropdown-sub">End-user needs &amp; limitations</a>
+            <a href="topics/a2-1.html#a2-1-2" class="dropdown-sub">Five stages of UCD</a>
+            <a href="topics/a2-1.html#a2-1-3" class="dropdown-sub">Multidisciplinary UCD teams</a>
+            <a href="topics/a2-1.html#a2-1-4" class="dropdown-sub">Field research, interviews &amp; focus groups</a>
+            <a href="topics/a2-1.html#a2-1-5" class="dropdown-sub">Personae, scenarios &amp; stereotypes</a>
+
+            <a href="topics/a2-2.html" class="dropdown-topic-head" style="margin-top:0.4rem;">A2.2 Prototyping techniques</a>
+            <a href="topics/a2-2.html#a2-2-1" class="dropdown-sub">Low- vs. high-fidelity iterative design</a>
+            <a href="topics/a2-2.html#a2-2-2" class="dropdown-sub">Manual and CAD drawings</a>
+            <a href="topics/a2-2.html#a2-2-3" class="dropdown-sub">Physical and virtual prototypes</a>
+            <a href="topics/a2-2.html#a2-2-4" class="dropdown-sub">Scale, aesthetics &amp; performance models</a>
+            <a href="topics/a2-2.html#a2-2-5" class="dropdown-sub">VR, AR, FEA &amp; haptic technology</a>
+            <a href="topics/a2-2.html#a2-2-6" class="dropdown-sub">Rapid prototyping (SLA, FDM, SLS)</a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">3 · Product</div>
+            <a href="topics/a3-1.html" class="dropdown-topic-head">A3.1 Material classification &amp; properties</a>
+            <a href="topics/a3-1.html#a3-1-1" class="dropdown-sub">Physical, chemical &amp; mechanical properties</a>
+            <a href="topics/a3-1.html#a3-1-2" class="dropdown-sub">Source/origin (natural &amp; human-made)</a>
+            <a href="topics/a3-1.html#a3-1-4" class="dropdown-sub">Physical properties</a>
+            <a href="topics/a3-1.html#a3-1-5" class="dropdown-sub">Chemical properties</a>
+            <a href="topics/a3-1.html#a3-1-6" class="dropdown-sub">Mechanical properties</a>
+            <a href="topics/a3-1.html#a3-1-7" class="dropdown-sub">Composites</a>
+            <a href="topics/a3-1.html#a3-1-8" class="dropdown-sub">Smart materials</a>
+            <a href="topics/a3-1.html#a3-1-9" class="dropdown-sub">Biodegradable materials</a>
+
+            <a href="topics/a3-2.html" class="dropdown-topic-head" style="margin-top:0.4rem;">A3.2 Structural systems <span class="hl-tag">HL</span></a>
+            <a href="topics/a3-2.html#a3-2-2" class="dropdown-sub">Classification (frame, shell, solid)</a>
+            <a href="topics/a3-2.html#a3-2-3" class="dropdown-sub">Structural parts (beams &amp; columns)</a>
+            <a href="topics/a3-2.html#a3-2-4" class="dropdown-sub">Static and dynamic forces</a>
+            <a href="topics/a3-2.html#a3-2-5" class="dropdown-sub">Stress, strain &amp; Young's Modulus</a>
+            <a href="topics/a3-2.html#a3-2-7" class="dropdown-sub">Equilibrium and stability</a>
+            <a href="topics/a3-2.html#a3-2-8" class="dropdown-sub">Strengthening techniques</a>
+            <a href="topics/a3-2.html#a3-2-9" class="dropdown-sub">Safety factors</a>
+
+            <a href="topics/a3-3.html" class="dropdown-topic-head" style="margin-top:0.4rem;">A3.3 Mechanical systems <span class="hl-tag">HL</span></a>
+            <a href="topics/a3-3.html#a3-3-1" class="dropdown-sub">Types of motion</a>
+            <a href="topics/a3-3.html#a3-3-2" class="dropdown-sub">Inputs, processes &amp; outputs</a>
+            <a href="topics/a3-3.html#a3-3-3" class="dropdown-sub">Mechanical advantage</a>
+            <a href="topics/a3-3.html#a3-3-6" class="dropdown-sub">Gear systems</a>
+            <a href="topics/a3-3.html#a3-3-7" class="dropdown-sub">Belt-driven systems &amp; pulleys</a>
+            <a href="topics/a3-3.html#a3-3-8" class="dropdown-sub">Cam &amp; follower systems</a>
+            <a href="topics/a3-3.html#a3-3-9" class="dropdown-sub">Levers (1st, 2nd &amp; 3rd class)</a>
+            <a href="topics/a3-3.html#a3-3-10" class="dropdown-sub">Linkages</a>
+
+            <a href="topics/a3-4.html" class="dropdown-topic-head" style="margin-top:0.4rem;">A3.4 Electronic systems <span class="hl-tag">HL</span></a>
+            <a href="topics/a3-4.html#a3-4-1" class="dropdown-sub">Input, process, output &amp; feedback</a>
+            <a href="topics/a3-4.html#a3-4-3" class="dropdown-sub">Analogue vs. digital systems</a>
+            <a href="topics/a3-4.html#a3-4-6" class="dropdown-sub">Passive &amp; active components</a>
+            <a href="topics/a3-4.html#a3-4-9" class="dropdown-sub">Microcontrollers (PIC)</a>
+            <a href="topics/a3-4.html#a3-4-11" class="dropdown-sub">Open- &amp; closed-loop systems</a>
+            <a href="topics/a3-4.html#a3-4-12" class="dropdown-sub">Operational amplifiers (op-amps)</a>
+            <a href="topics/a3-4.html#a3-4-13" class="dropdown-sub">Embedded systems</a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">4 · Production</div>
+            <a href="topics/a4-1.html" class="dropdown-topic-head">A4.1 Manufacturing techniques <span class="hl-tag">HL</span></a>
+            <a href="topics/a4-1.html#a4-1-1" class="dropdown-sub">Categories (additive, subtractive, forming…)</a>
+            <a href="topics/a4-1.html#a4-1-2" class="dropdown-sub">3D printing (LOM, FDM, SLA)</a>
+            <a href="topics/a4-1.html#a4-1-5" class="dropdown-sub">4D and 5D printing</a>
+            <a href="topics/a4-1.html#a4-1-7" class="dropdown-sub">Subtractive techniques</a>
+            <a href="topics/a4-1.html#a4-1-8" class="dropdown-sub">Forming techniques</a>
+            <a href="topics/a4-1.html#a4-1-9" class="dropdown-sub">Joining techniques</a>
+            <a href="topics/a4-1.html#a4-1-10" class="dropdown-sub">Finishing techniques</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- STRAND B -->
+      <div class="nav-item strand-b">
+        <button class="nav-label" aria-haspopup="true">
+          <span class="strand-badge">B</span> Practice
+          <span class="caret">▼</span>
+        </button>
+        <div class="dropdown" role="menu">
+
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">1 · People</div>
+            <a href="topics/b1-1.html" class="dropdown-topic-head">B1.1 User-centred design</a>
+            <a href="topics/b1-1.html#b1-1-1" class="dropdown-sub">Planning UCD inquiries</a>
+            <a href="topics/b1-1.html#b1-1-3" class="dropdown-sub">Creating personae from research</a>
+            <a href="topics/b1-1.html#b1-1-4" class="dropdown-sub">Usability objectives</a>
+            <a href="topics/b1-1.html#b1-1-5" class="dropdown-sub">Applying task analysis</a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">2 · Process</div>
+            <a href="topics/b2-1.html" class="dropdown-topic-head">B2.1 The design process</a>
+            <a href="topics/b2-1.html#b2-1-1" class="dropdown-sub">Five stages of design</a>
+            <a href="topics/b2-1.html#b2-1-2" class="dropdown-sub">Primary vs. secondary research</a>
+            <a href="topics/b2-1.html#b2-1-6" class="dropdown-sub">Storyboarding &amp; user journey mapping</a>
+            <a href="topics/b2-1.html#b2-1-8" class="dropdown-sub">Problem statements</a>
+            <a href="topics/b2-1.html#b2-1-9" class="dropdown-sub">Design specifications</a>
+            <a href="topics/b2-1.html#b2-1-12" class="dropdown-sub">Iterative model-test-refine cycle</a>
+
+            <a href="topics/b2-2.html" class="dropdown-topic-head" style="margin-top:0.4rem;">B2.2 Modelling and prototyping</a>
+            <a href="topics/b2-2.html#b2-2-1" class="dropdown-sub">2D &amp; 3D drawings (isometric, orthographic…)</a>
+            <a href="topics/b2-2.html#b2-2-4" class="dropdown-sub">Finite Element Analysis (FEA)</a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">3 · Product</div>
+            <a href="topics/b3-1.html" class="dropdown-topic-head">B3.1 Material selection</a>
+            <a href="topics/b3-1.html#b3-1-1" class="dropdown-sub">Selection based on properties</a>
+            <a href="topics/b3-1.html#b3-1-2" class="dropdown-sub">Aesthetic characteristics</a>
+            <a href="topics/b3-1.html#b3-1-3" class="dropdown-sub">Cost, availability &amp; sustainability</a>
+
+            <a href="topics/b3-2.html" class="dropdown-topic-head" style="margin-top:0.4rem;">B3.2 Structural systems <span class="hl-tag">HL</span></a>
+            <a href="topics/b3-2.html#b3-2-2" class="dropdown-sub">Calculating Young's Modulus</a>
+            <a href="topics/b3-2.html#b3-2-5" class="dropdown-sub">Calculating safety factors</a>
+
+            <a href="topics/b3-3.html" class="dropdown-topic-head" style="margin-top:0.4rem;">B3.3 Mechanical systems <span class="hl-tag">HL</span></a>
+            <a href="topics/b3-3.html#b3-3-1" class="dropdown-sub">Calculating mechanical advantage</a>
+            <a href="topics/b3-3.html#b3-3-2" class="dropdown-sub">Velocity ratios &amp; efficiency</a>
+
+            <a href="topics/b3-4.html" class="dropdown-topic-head" style="margin-top:0.4rem;">B3.4 Electronic systems <span class="hl-tag">HL</span></a>
+            <a href="topics/b3-4.html#b3-4-2" class="dropdown-sub">Measuring apparatus</a>
+            <a href="topics/b3-4.html#b3-4-3" class="dropdown-sub">V=IR and P=VI calculations</a>
+            <a href="topics/b3-4.html#b3-4-4" class="dropdown-sub">Resistance/capacitance in series &amp; parallel</a>
+            <a href="topics/b3-4.html#b3-4-5" class="dropdown-sub">Flow diagrams &amp; truth tables</a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">4 · Production</div>
+            <a href="topics/b4-1.html" class="dropdown-topic-head">B4.1 Production systems <span class="hl-tag">HL</span></a>
+            <a href="topics/b4-1.html#b4-1-1" class="dropdown-sub">Types of production systems</a>
+            <a href="topics/b4-1.html#b4-1-3" class="dropdown-sub">Scale of production</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- STRAND C -->
+      <div class="nav-item strand-c">
+        <button class="nav-label" aria-haspopup="true">
+          <span class="strand-badge">C</span> Context
+          <span class="caret">▼</span>
+        </button>
+        <div class="dropdown" role="menu">
+
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">1 · People</div>
+            <a href="topics/c1-1.html" class="dropdown-topic-head">C1.1 Responsibility of the designer</a>
+            <a href="topics/c1-1.html#c1-1-2" class="dropdown-sub">Safety standards &amp; user well-being</a>
+            <a href="topics/c1-1.html#c1-1-3" class="dropdown-sub">Planned obsolescence &amp; Triple Bottom Line</a>
+
+            <a href="topics/c1-2.html" class="dropdown-topic-head" style="margin-top:0.4rem;">C1.2 Inclusive design</a>
+            <a href="topics/c1-2.html#c1-2-1" class="dropdown-sub">Universal accessibility</a>
+            <a href="topics/c1-2.html#c1-2-3" class="dropdown-sub">Design for extremes strategy</a>
+
+            <a href="topics/c1-3.html" class="dropdown-topic-head" style="margin-top:0.4rem;">C1.3 Beyond usability <span class="hl-tag">HL</span></a>
+            <a href="topics/c1-3.html#c1-3-1" class="dropdown-sub">Four-pleasure framework</a>
+            <a href="topics/c1-3.html#c1-3-2" class="dropdown-sub">ACT model (Attract, Converse, Transact)</a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">2 · Process</div>
+            <a href="topics/c2-1.html" class="dropdown-topic-head">C2.1 Design for sustainability</a>
+            <a href="topics/c2-1.html#c2-1-2" class="dropdown-sub">Datchefski's five principles</a>
+            <a href="topics/c2-1.html#c2-1-3" class="dropdown-sub">Triple Bottom Line (People, Profit, Planet)</a>
+
+            <a href="topics/c2-2.html" class="dropdown-topic-head" style="margin-top:0.4rem;">C2.2 Design for a circular economy</a>
+            <a href="topics/c2-2.html#c2-2-2" class="dropdown-sub">Longevity, disassembly &amp; dematerialization</a>
+            <a href="topics/c2-2.html#c2-2-4" class="dropdown-sub">Recovery &amp; restoration</a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">3 · Product</div>
+            <a href="topics/c3-1.html" class="dropdown-topic-head">C3.1 Product analysis and evaluation</a>
+            <a href="topics/c3-1.html#c3-1-3" class="dropdown-sub">SWOT analysis</a>
+            <a href="topics/c3-1.html#c3-1-4" class="dropdown-sub">Reverse engineering</a>
+            <a href="topics/c3-1.html#c3-1-6" class="dropdown-sub">Constructive discontent</a>
+
+            <a href="topics/c3-2.html" class="dropdown-topic-head" style="margin-top:0.4rem;">C3.2 Life-cycle analysis <span class="hl-tag">HL</span></a>
+            <a href="topics/c3-2.html#c3-2-1" class="dropdown-sub">Sustainability analysis</a>
+            <a href="topics/c3-2.html#c3-2-2" class="dropdown-sub">Cradle-to-grave inventory stages</a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">4 · Production</div>
+            <a href="topics/c4-1.html" class="dropdown-topic-head">C4.1 Design for manufacture strategies <span class="hl-tag">HL</span></a>
+            <a href="topics/c4-1.html#c4-1-1" class="dropdown-sub">DfM strategies (process, assembly, disassembly)</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- IA -->
+      <div class="nav-item">
+        <button class="nav-label" aria-haspopup="true">
+          IA Project
+          <span class="caret">▼</span>
+        </button>
+        <div class="dropdown" role="menu">
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">Getting Started</div>
+            <a href="ia/overview.html">Overview &amp; Requirements</a>
+            <a href="ia/topic.html">Choosing your IA Topic</a>
+            <a href="ia/timeline.html">Timeline &amp; Deadlines</a>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">Criteria</div>
+            <a href="ia/criterion-a.html">Criterion A — Identifying a need</a>
+            <a href="ia/criterion-b.html">Criterion B — Conceptual design</a>
+            <a href="ia/criterion-c.html">Criterion C — Prototype development</a>
+            <a href="ia/criterion-d.html">Criterion D — Testing &amp; evaluation</a>
+            <a href="ia/criterion-e.html">Criterion E — Impact &amp; sustainability</a>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">Resources</div>
+            <a href="ia/exemplars.html">Exemplar Projects</a>
+            <a href="ia/research.html">Research &amp; Citation Guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRACTICAL PROJECTS -->
+      <div class="nav-item">
+        <button class="nav-label" aria-haspopup="true">
+          Projects
+          <span class="caret">▼</span>
+        </button>
+        <div class="dropdown" role="menu" style="right:0;left:auto;">
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">Design Challenges</div>
+            <a href="projects/brief-challenges.html">Brief-based Challenges</a>
+            <a href="projects/case-studies.html">Case Study Analysis</a>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">Making &amp; Fabrication</div>
+            <a href="projects/3d-printing.html">3D Printing Projects</a>
+            <a href="projects/laser-cutting.html">Laser Cutting Projects</a>
+            <a href="projects/electronics.html">Electronics Projects</a>
+            <a href="projects/structures.html">Structural Projects</a>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-section">
+            <div class="dropdown-section-title">Collaborative</div>
+            <a href="projects/community.html">Community Design</a>
+            <a href="projects/sustainability.html">Sustainability Challenges</a>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+
+    <button class="hamburger" onclick="alert('Mobile menu — add your preferred JS handler here!')">☰</button>
+  </div>
+</header>
+
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Design<br><em>Technology</em><br>Curriculum</h1>
+    <p>Resources for IB DP Design Technology students at UWC Thailand. New curriculum — first assessment 2027.</p>
+    <div class="hero-meta">
+      <span class="badge">New Curriculum</span>
+      <span class="badge">First Assessment 2027</span>
+      <span class="badge outline">G11 · G12</span>
+    </div>
+  </div>
+
+  <div class="hero-visual" style="grid-template-columns: 1fr 1fr; grid-template-rows: auto auto;">
+    <a href="#strand-a" class="strand-card">
+      <div class="big-letter">A</div>
+      <div class="strand-name">Design in Theory</div>
+      <div class="topic-count">4 themes · 8 topics</div>
+    </a>
+    <a href="#strand-b" class="strand-card">
+      <div class="big-letter">B</div>
+      <div class="strand-name">Design in Practice</div>
+      <div class="topic-count">4 themes · 8 topics</div>
+    </a>
+    <a href="#strand-c" class="strand-card">
+      <div class="big-letter">C</div>
+      <div class="strand-name">Design in Context</div>
+      <div class="topic-count">4 themes · 8 topics</div>
+    </a>
+    <a href="#section-ia" class="strand-card" style="background:var(--yellow);color:var(--black);border:2px solid var(--black);">
+      <div class="big-letter" style="color:var(--black);">IA</div>
+      <div class="strand-name" style="color:var(--black);">Internal Assessment</div>
+      <div class="topic-count" style="color:var(--black);">5 criteria · exemplars</div>
+    </a>
+    <a href="#section-projects" class="strand-card" style="grid-column: span 2; background:#1a1a1a; display:flex; align-items:center; gap:1.5rem; text-align:left; padding: 1.2rem 1.5rem;">
+      <div class="big-letter" style="font-size:2rem; flex-shrink:0;">✦</div>
+      <div>
+        <div class="strand-name" style="font-size:0.8rem;">Practical Projects</div>
+        <div class="topic-count" style="margin-top:0.3rem;">Fabrication · Design Challenges · Community</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+
+<!-- ══ MAIN ══ -->
+<main>
+
+  <!-- ────────────── STRAND A ────────────── -->
+  <section class="strand-section anchor-target" id="strand-a">
+    <div class="strand-header">
+      <div class="big-badge">A</div>
+      <div class="strand-header-text">
+        <h2>Design in Theory</h2>
+        <p>The knowledge and conceptual foundations of design technology</p>
+      </div>
+    </div>
+
+    <!-- A · Theme 1 -->
+    <div class="theme-block">
+      <div class="theme-title">1 · People</div>
+      <div class="topic-grid">
+        <a href="topics/a1-1.html" class="topic-card anchor-target" id="a1-1">
+          <div class="topic-code">A1.1</div>
+          <div class="topic-title">Ergonomics</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- A · Theme 2 -->
+    <div class="theme-block">
+      <div class="theme-title">2 · Process</div>
+      <div class="topic-grid">
+        <a href="topics/a2-1.html" class="topic-card anchor-target" id="a2-1">
+          <div class="topic-code">A2.1</div>
+          <div class="topic-title">User-centred research methods</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/a2-2.html" class="topic-card anchor-target" id="a2-2">
+          <div class="topic-code">A2.2</div>
+          <div class="topic-title">Prototyping techniques</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- A · Theme 3 -->
+    <div class="theme-block">
+      <div class="theme-title">3 · Product</div>
+      <div class="topic-grid">
+        <a href="topics/a3-1.html" class="topic-card anchor-target" id="a3-1">
+          <div class="topic-code">A3.1</div>
+          <div class="topic-title">Material classification and properties</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/a3-2.html" class="topic-card hl-only anchor-target" id="a3-2">
+          <div class="topic-code">A3.2</div>
+          <div class="topic-title">Introduction to structural systems</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/a3-3.html" class="topic-card hl-only anchor-target" id="a3-3">
+          <div class="topic-code">A3.3</div>
+          <div class="topic-title">Introduction to mechanical systems</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/a3-4.html" class="topic-card hl-only anchor-target" id="a3-4">
+          <div class="topic-code">A3.4</div>
+          <div class="topic-title">Introduction to electronic systems</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- A · Theme 4 -->
+    <div class="theme-block">
+      <div class="theme-title">4 · Production</div>
+      <div class="topic-grid">
+        <a href="topics/a4-1.html" class="topic-card hl-only anchor-target" id="a4-1">
+          <div class="topic-code">A4.1</div>
+          <div class="topic-title">Manufacturing techniques</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ────────────── STRAND B ────────────── -->
+  <section class="strand-section anchor-target" id="strand-b">
+    <div class="strand-header">
+      <div class="big-badge">B</div>
+      <div class="strand-header-text">
+        <h2>Design in Practice</h2>
+        <p>Applying design skills, methods and tools in real contexts</p>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">1 · People</div>
+      <div class="topic-grid">
+        <a href="topics/b1-1.html" class="topic-card anchor-target" id="b1-1">
+          <div class="topic-code">B1.1</div>
+          <div class="topic-title">User-centred design</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">2 · Process</div>
+      <div class="topic-grid">
+        <a href="topics/b2-1.html" class="topic-card anchor-target" id="b2-1">
+          <div class="topic-code">B2.1</div>
+          <div class="topic-title">The design process</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/b2-2.html" class="topic-card anchor-target" id="b2-2">
+          <div class="topic-code">B2.2</div>
+          <div class="topic-title">Modelling and prototyping</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">3 · Product</div>
+      <div class="topic-grid">
+        <a href="topics/b3-1.html" class="topic-card anchor-target" id="b3-1">
+          <div class="topic-code">B3.1</div>
+          <div class="topic-title">Material selection</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/b3-2.html" class="topic-card hl-only anchor-target" id="b3-2">
+          <div class="topic-code">B3.2</div>
+          <div class="topic-title">Structural systems application and selection</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/b3-3.html" class="topic-card hl-only anchor-target" id="b3-3">
+          <div class="topic-code">B3.3</div>
+          <div class="topic-title">Mechanical systems application and selection</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/b3-4.html" class="topic-card hl-only anchor-target" id="b3-4">
+          <div class="topic-code">B3.4</div>
+          <div class="topic-title">Electronic systems application and selection</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">4 · Production</div>
+      <div class="topic-grid">
+        <a href="topics/b4-1.html" class="topic-card hl-only anchor-target" id="b4-1">
+          <div class="topic-code">B4.1</div>
+          <div class="topic-title">Production systems</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ────────────── STRAND C ────────────── -->
+  <section class="strand-section anchor-target" id="strand-c">
+    <div class="strand-header">
+      <div class="big-badge">C</div>
+      <div class="strand-header-text">
+        <h2>Design in Context</h2>
+        <p>Examining the social, ethical and environmental dimensions of design</p>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">1 · People</div>
+      <div class="topic-grid">
+        <a href="topics/c1-1.html" class="topic-card anchor-target" id="c1-1">
+          <div class="topic-code">C1.1</div>
+          <div class="topic-title">Responsibility of the designer</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/c1-2.html" class="topic-card anchor-target" id="c1-2">
+          <div class="topic-code">C1.2</div>
+          <div class="topic-title">Inclusive design</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/c1-3.html" class="topic-card hl-only anchor-target" id="c1-3">
+          <div class="topic-code">C1.3</div>
+          <div class="topic-title">Beyond usability</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">2 · Process</div>
+      <div class="topic-grid">
+        <a href="topics/c2-1.html" class="topic-card anchor-target" id="c2-1">
+          <div class="topic-code">C2.1</div>
+          <div class="topic-title">Design for sustainability</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/c2-2.html" class="topic-card anchor-target" id="c2-2">
+          <div class="topic-code">C2.2</div>
+          <div class="topic-title">Design for a circular economy</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">3 · Product</div>
+      <div class="topic-grid">
+        <a href="topics/c3-1.html" class="topic-card anchor-target" id="c3-1">
+          <div class="topic-code">C3.1</div>
+          <div class="topic-title">Product analysis and evaluation</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="topics/c3-2.html" class="topic-card hl-only anchor-target" id="c3-2">
+          <div class="topic-code">C3.2</div>
+          <div class="topic-title">Life-cycle analysis</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">4 · Production</div>
+      <div class="topic-grid">
+        <a href="topics/c4-1.html" class="topic-card hl-only anchor-target" id="c4-1">
+          <div class="topic-code">C4.1</div>
+          <div class="topic-title">Design for manufacture strategies</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ────────────── INTERNAL ASSESSMENT ────────────── -->
+  <section class="strand-section anchor-target" id="section-ia">
+    <div class="strand-header">
+      <div class="big-badge">IA</div>
+      <div class="strand-header-text">
+        <h2>Internal Assessment</h2>
+        <p>The Design Project — your independent design and making portfolio</p>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">Getting Started</div>
+      <div class="topic-grid">
+        <a href="ia/overview.html" class="topic-card anchor-target" id="ia-overview">
+          <div class="topic-code">IA</div>
+          <div class="topic-title">Overview &amp; Requirements</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="ia/topic.html" class="topic-card anchor-target" id="ia-topic">
+          <div class="topic-code">IA</div>
+          <div class="topic-title">Choosing your IA Topic</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="ia/timeline.html" class="topic-card anchor-target" id="ia-timeline">
+          <div class="topic-code">IA</div>
+          <div class="topic-title">Timeline &amp; Deadlines</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">Assessment Criteria</div>
+      <div class="topic-grid">
+        <a href="ia/criterion-a.html" class="topic-card anchor-target" id="ia-crit-a">
+          <div class="topic-code">Criterion A</div>
+          <div class="topic-title">Identifying a need or opportunity</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="ia/criterion-b.html" class="topic-card anchor-target" id="ia-crit-b">
+          <div class="topic-code">Criterion B</div>
+          <div class="topic-title">Conceptual design</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="ia/criterion-c.html" class="topic-card anchor-target" id="ia-crit-c">
+          <div class="topic-code">Criterion C</div>
+          <div class="topic-title">Prototype development</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="ia/criterion-d.html" class="topic-card anchor-target" id="ia-crit-d">
+          <div class="topic-code">Criterion D</div>
+          <div class="topic-title">Testing &amp; evaluation</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="ia/criterion-e.html" class="topic-card anchor-target" id="ia-crit-e">
+          <div class="topic-code">Criterion E</div>
+          <div class="topic-title">Impact &amp; sustainability</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">Resources</div>
+      <div class="topic-grid">
+        <a href="ia/exemplars.html" class="topic-card anchor-target" id="ia-examples">
+          <div class="topic-code">IA</div>
+          <div class="topic-title">Exemplar Projects</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="ia/research.html" class="topic-card anchor-target" id="ia-research">
+          <div class="topic-code">IA</div>
+          <div class="topic-title">Research &amp; Citation Guide</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ────────────── PRACTICAL PROJECTS ────────────── -->
+  <section class="strand-section anchor-target" id="section-projects">
+    <div class="strand-header">
+      <div class="big-badge" style="font-size:2.5rem;">✦</div>
+      <div class="strand-header-text">
+        <h2>Practical Projects</h2>
+        <p>Hands-on making, fabrication, and design challenges linked to curriculum topics</p>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">Design Challenges</div>
+      <div class="topic-grid">
+        <a href="projects/brief-challenges.html" class="topic-card anchor-target" id="proj-design-challenges">
+          <div class="topic-code">Project</div>
+          <div class="topic-title">Brief-based Design Challenges</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="projects/case-studies.html" class="topic-card anchor-target" id="proj-case-studies">
+          <div class="topic-code">Project</div>
+          <div class="topic-title">Case Study Analysis</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">Making &amp; Fabrication</div>
+      <div class="topic-grid">
+        <a href="projects/3d-printing.html" class="topic-card anchor-target" id="proj-3d-printing">
+          <div class="topic-code">Fabrication</div>
+          <div class="topic-title">3D Printing Projects</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="projects/laser-cutting.html" class="topic-card anchor-target" id="proj-laser">
+          <div class="topic-code">Fabrication</div>
+          <div class="topic-title">Laser Cutting Projects</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="projects/electronics.html" class="topic-card anchor-target" id="proj-electronics">
+          <div class="topic-code">Fabrication</div>
+          <div class="topic-title">Electronics Projects</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="projects/structures.html" class="topic-card anchor-target" id="proj-structures">
+          <div class="topic-code">Fabrication</div>
+          <div class="topic-title">Structural Projects</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="theme-block">
+      <div class="theme-title">Collaborative</div>
+      <div class="topic-grid">
+        <a href="projects/community.html" class="topic-card anchor-target" id="proj-community">
+          <div class="topic-code">Collaborative</div>
+          <div class="topic-title">Community Design</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+        <a href="projects/sustainability.html" class="topic-card anchor-target" id="proj-sustainability">
+          <div class="topic-code">Collaborative</div>
+          <div class="topic-title">Sustainability Challenges</div>
+          <span class="topic-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p><strong>IB DP Design Technology</strong> · UWC Thailand · New Curriculum · First Assessment 2027</p>
+  <p style="margin-top:0.5rem;">Built with ♥ for G11 &amp; G12 DT students</p>
+</footer>
+
+<script src="js/nav.js"></script>
+</body>
+</html>

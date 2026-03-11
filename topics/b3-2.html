@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>B3-2 Structural Systems Application and Selection — IB DP Design Technology</title>
+  <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--yellow:#FFD600;--black:#111111;--gray:#222222;--hl-accent:#FF4500}
+    html{scroll-behavior:smooth}
+    body{font-family:'Aleo',Georgia,serif;background:var(--yellow);color:var(--black);min-height:100vh}
+    header{background:var(--black);color:var(--yellow);padding:0 2rem;position:sticky;top:0;z-index:1000;border-bottom:3px solid var(--yellow)}
+    .header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+    .site-title{font-size:1.1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--yellow);text-decoration:none}
+    .site-title span{opacity:.4;font-weight:300;margin:0 .3em}
+    .back-link{display:flex;align-items:center;gap:.5em;font-size:.82rem;font-weight:600;color:var(--yellow);text-decoration:none;opacity:.7;transition:opacity .15s;letter-spacing:.04em}
+    .back-link:hover{opacity:1}
+    .breadcrumb{max-width:1200px;margin:0 auto;padding:1rem 2rem 0;font-size:.78rem;display:flex;align-items:center;gap:.5em;flex-wrap:wrap;opacity:.6}
+    .breadcrumb a{color:var(--black);text-decoration:none;font-weight:600}
+    .breadcrumb a:hover{text-decoration:underline}
+    .breadcrumb span{opacity:.5}
+    .topic-hero{max-width:1200px;margin:0 auto;padding:2rem 2rem 3rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start}
+    .topic-code-block{background:var(--black);color:var(--yellow);padding:1.2rem 1.5rem;text-align:center;border-radius:4px;min-width:100px}
+    .topic-code-block .code{font-size:1.8rem;font-weight:700;line-height:1}
+    .hl-pill{display:inline-block;background:var(--hl-accent);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:2px;margin-top:.5rem}
+    .strand-label{font-size:.65rem;opacity:.5;margin-top:.3rem;letter-spacing:.08em;text-transform:uppercase}
+    .topic-hero-text h1{font-size:clamp(1.6rem,3vw,2.6rem);font-weight:700;line-height:1.15;margin-bottom:.75rem}
+    .topic-hero-text .strand-path{font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:.5;margin-bottom:.5rem}
+    .topic-hero-text p{font-size:1rem;line-height:1.7;max-width:640px;color:var(--gray)}
+    .topic-body{max-width:1200px;margin:0 auto;padding:0 2rem 5rem;display:grid;grid-template-columns:220px 1fr;gap:3rem;align-items:start}
+    .sidebar{position:sticky;top:80px}
+    .sidebar-title{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--black);color:var(--yellow);padding:.3rem .7rem;margin-bottom:.5rem}
+    .sidebar nav a{display:block;padding:.4rem .7rem;font-size:.8rem;color:var(--black);text-decoration:none;border-left:2px solid transparent;transition:border-color .15s,background .15s;line-height:1.4}
+    .sidebar nav a:hover{border-left-color:var(--black);background:rgba(0,0,0,.06)}
+    .sidebar-code{font-size:.65rem;opacity:.4;margin-right:.3em}
+    .presentation-box{background:var(--black);border-radius:4px;overflow:hidden;margin-bottom:2.5rem}
+    .presentation-box .pres-label{padding:.6rem 1rem;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--yellow);opacity:.5}
+    .presentation-box iframe{width:100%;aspect-ratio:16/9;border:none;display:block}
+    .presentation-placeholder{width:100%;aspect-ratio:16/9;background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;color:var(--yellow)}
+    .presentation-placeholder .icon{font-size:2.5rem;opacity:.3}
+    .presentation-placeholder p{font-size:.8rem;opacity:.4;text-align:center;max-width:280px;line-height:1.5}
+    .subtopic{margin-bottom:3rem;scroll-margin-top:80px}
+    .subtopic-header{display:flex;align-items:baseline;gap:.75rem;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:2px solid var(--black)}
+    .subtopic-num{font-size:.7rem;font-weight:700;letter-spacing:.1em;background:var(--black);color:var(--yellow);padding:.2rem .5rem;border-radius:2px;flex-shrink:0}
+    .subtopic-header h2{font-size:1.15rem;font-weight:700;line-height:1.2}
+    .subtopic-body{font-size:.95rem;line-height:1.75;color:var(--gray)}
+    .content-placeholder{background:rgba(0,0,0,.05);border:2px dashed rgba(0,0,0,.15);border-radius:3px;padding:1.5rem;font-size:.82rem;color:rgba(0,0,0,.35);font-style:italic;text-align:center}
+    .key-terms{background:var(--black);color:var(--yellow);padding:1.2rem 1.5rem;border-radius:3px;margin-top:1rem}
+    .key-terms h3{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.5;margin-bottom:.75rem}
+    .key-terms ul{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem}
+    .key-terms li{background:rgba(255,214,0,.12);padding:.25rem .65rem;border-radius:2px;font-size:.8rem;font-weight:600}
+    .hl-tag{font-size:.6rem;font-weight:700;background:var(--hl-accent);color:#fff;padding:1px 5px;border-radius:2px;margin-left:.4em}
+    .topic-nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;border-top:2px solid var(--black);margin-top:2rem}
+    .topic-nav a{display:flex;align-items:center;gap:.5em;font-size:.85rem;font-weight:700;color:var(--black);text-decoration:none;padding:.5rem 1rem;border:2px solid var(--black);border-radius:2px;transition:background .15s,color .15s}
+    .topic-nav a:hover{background:var(--black);color:var(--yellow)}
+    .topic-nav span{display:block}
+    @media(max-width:768px){.topic-body{grid-template-columns:1fr}.sidebar{position:static}.topic-hero{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="site-title">IB DP<span>/</span>Design Technology</a>
+    <a href="../index.html#strand-b" class="back-link">← Back to B: Design in Practice</a>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>/</span>
+  <a href="../index.html#strand-b">B: Design in Practice</a>
+  <span>/</span>
+  <a href="../index.html#b3-b">3 · Product</a>
+  <span>/</span>
+  B3-2 Structural Systems Application and Selection
+</div>
+
+<div class="topic-hero">
+  <div class="topic-code-block">
+    <div class="code">B3-2</div>
+    <div class="hl-pill">HL only</div>
+    <div class="strand-label">Practice</div>
+  </div>
+  <div class="topic-hero-text">
+    <div class="strand-path">B · Design in Practice &nbsp;/&nbsp; 3 · Product</div>
+    <h1>Structural Systems Application and Selection</h1>
+    <p>This HL topic applies the theory of structural systems to real design scenarios, focusing on calculating Young's Modulus and safety factors to inform material and structural decisions.</p>
+  </div>
+</div>
+
+<div class="topic-body">
+  <aside class="sidebar">
+    <div class="sidebar-title">On this page</div>
+    <nav>
+      <a href="#presentation">Presentation</a>
+      <a href="#b3-2-3_2_2"><span class="sidebar-code">3.2.2</span> Calculating Young's Modulus</a>
+      <a href="#b3-2-3_2_5"><span class="sidebar-code">3.2.5</span> Calculating safety factors</a>
+
+    </nav>
+  </aside>
+
+  <main class="content">
+    <div class="presentation-box" id="presentation">
+      <div class="pres-label">Lesson presentation</div>
+      <div class="presentation-placeholder">
+        <div class="icon">▶</div>
+        <p>Paste your Google Slides embed URL here.<br>File → Share → Publish to web → Embed</p>
+      </div>
+    </div>
+
+
+    <!-- 3.2.2 -->
+    <section class="subtopic" id="b3-2-3_2_2">
+      <div class="subtopic-header">
+        <span class="subtopic-num">3.2.2</span>
+        <h2>Calculating Young's Modulus</h2>
+      </div>
+      <div class="subtopic-body">
+        <div class="content-placeholder">Add your notes, diagrams, or embedded content for this subtopic here.</div>
+        <div class="key-terms">
+          <h3>Key terms</h3>
+          <ul>
+<li>Young's Modulus</li>
+<li>Stress</li>
+<li>Strain</li>
+<li>Elastic modulus</li>
+<li>Calculation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.2.5 -->
+    <section class="subtopic" id="b3-2-3_2_5">
+      <div class="subtopic-header">
+        <span class="subtopic-num">3.2.5</span>
+        <h2>Calculating safety factors</h2>
+      </div>
+      <div class="subtopic-body">
+        <div class="content-placeholder">Add your notes, diagrams, or embedded content for this subtopic here.</div>
+        <div class="key-terms">
+          <h3>Key terms</h3>
+          <ul>
+<li>Safety factor</li>
+<li>Working load</li>
+<li>Failure load</li>
+<li>Factor of safety</li>
+<li>Calculation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="topic-nav">
+      <a href="b3-1.html">← B3.1 Material selection</a>
+      <a href="b3-3.html">B3.3 Mechanical systems application →</a>
+    </div>
+  </main>
+</div>
+
+<script src="../js/nav.js"></script>
+</body>
+</html>
